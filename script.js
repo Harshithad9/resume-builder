@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const resumeForm = document.getElementById('resumeForm');
-    const resumePreview = document.getElementById('resumePreview');
     const progressBar = document.getElementById('progressBar');
     
     // Form fields
@@ -26,42 +25,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const clearFormBtn = document.getElementById('clearForm');
     const downloadPDFBtn = document.getElementById('downloadPDF');
     
-    // Selected skills array
-    let selectedSkills = ['HTML', 'CSS', 'JavaScript'];
+    // Skills management
+    let selectedSkills = [];
     
     // Initialize the form
     initForm();
     
     // Event Listeners
+    resumeForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent actual form submission
+    });
+    
+    // Input events for real-time updates
     nameInput.addEventListener('input', updatePreview);
     emailInput.addEventListener('input', updatePreview);
     phoneInput.addEventListener('input', updatePreview);
     summaryInput.addEventListener('input', updatePreview);
+    customSkillInput.addEventListener('keypress', handleCustomSkillInput);
     
+    // Button events
     addEducationBtn.addEventListener('click', addEducationField);
     addExperienceBtn.addEventListener('click', addExperienceField);
     clearFormBtn.addEventListener('click', clearForm);
     downloadPDFBtn.addEventListener('click', downloadPDF);
     
-    // Skill selection
+    // Skill checkbox events
     document.querySelectorAll('.skills-container input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', updateSkills);
     });
     
-    customSkillInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && this.value.trim() !== '') {
-            const skill = this.value.trim();
-            if (!selectedSkills.includes(skill)) {
-                selectedSkills.push(skill);
-                updateSkills();
-                renderSelectedSkills();
-            }
-            this.value = '';
-            e.preventDefault();
-        }
-    });
-    
-    // Dynamic form field updates
+    // Dynamic field updates
     document.addEventListener('input', function(e) {
         if (e.target.classList.contains('institution') || 
             e.target.classList.contains('degree') || 
@@ -75,10 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Initialize the form and preview
+    // Initialize form with default fields
     function initForm() {
+        // Add one empty education and experience field by default
+        addEducationField();
+        addExperienceField();
+        
+        // Set default skills
+        selectedSkills = ['HTML', 'CSS', 'JavaScript'];
+        document.getElementById('html').checked = true;
+        document.getElementById('css').checked = true;
+        document.getElementById('js').checked = true;
+        
+        // Update preview and progress
         updatePreview();
-        renderSelectedSkills();
         updateProgressBar();
     }
     
@@ -97,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         educationEntries.forEach(entry => {
             const institution = entry.querySelector('.institution').value || 'University Name';
             const degree = entry.querySelector('.degree').value || 'Bachelor of Science';
-            const field = entry.querySelector('.field').value || 'Field of Study';
+            const field = entry.querySelector('.field').value || '';
             const years = entry.querySelector('.years').value || 'Years Attended';
             
             educationHTML += `
@@ -111,9 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         previewEducation.innerHTML = educationHTML || `
             <div class="education-item">
-                <h4>University Name</h4>
-                <p class="degree">Bachelor of Science in Computer Science</p>
-                <p class="years">2015-2019</p>
+                <h4>Your Education</h4>
+                <p>Add your education history</p>
             </div>
         `;
         
@@ -139,17 +141,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
         previewExperience.innerHTML = experienceHTML || `
             <div class="experience-item">
-                <h4>Software Developer</h4>
-                <p class="company">Tech Corp</p>
-                <p class="duration">2020-Present</p>
-                <p class="description">Job responsibilities and achievements.</p>
+                <h4>Your Experience</h4>
+                <p>Add your work experience</p>
             </div>
         `;
         
+        // Update progress bar
         updateProgressBar();
     }
     
-    // Update skills preview
+    // Handle custom skill input
+    function handleCustomSkillInput(e) {
+        if (e.key === 'Enter' && customSkillInput.value.trim() !== '') {
+            const skill = customSkillInput.value.trim();
+            if (!selectedSkills.includes(skill)) {
+                selectedSkills.push(skill);
+                updateSkills();
+            }
+            customSkillInput.value = '';
+            e.preventDefault();
+        }
+    }
+    
+    // Update skills list
     function updateSkills() {
         selectedSkills = [];
         
@@ -158,20 +172,12 @@ document.addEventListener('DOMContentLoaded', function() {
             selectedSkills.push(checkbox.value);
         });
         
-        renderSelectedSkills();
-    }
-    
-    // Render selected skills
-    function renderSelectedSkills() {
-        let skillsHTML = '';
+        // Update skills preview
+        previewSkills.innerHTML = selectedSkills.map(skill => 
+            `<span>${skill}</span>`
+        ).join('') || '<span>No skills selected</span>';
         
-        selectedSkills.forEach(skill => {
-            skillsHTML += `<span>${skill}</span>`;
-        });
-        
-        previewSkills.innerHTML = skillsHTML || '<span>HTML</span><span>CSS</span><span>JavaScript</span>';
-        
-        // Update the skills tags in the form
+        // Update selected skills display in form
         const selectedSkillsContainer = document.getElementById('selectedSkills');
         selectedSkillsContainer.innerHTML = '';
         
@@ -191,14 +197,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const skillToRemove = this.getAttribute('data-skill');
                 selectedSkills = selectedSkills.filter(skill => skill !== skillToRemove);
                 
-                // Also uncheck if it's a checkbox skill
+                // Uncheck if it's a checkbox skill
                 const checkbox = document.querySelector(`.skills-container input[value="${skillToRemove}"]`);
                 if (checkbox) {
                     checkbox.checked = false;
                 }
                 
-                renderSelectedSkills();
-                updatePreview();
+                updateSkills();
             });
         });
     }
@@ -234,6 +239,11 @@ document.addEventListener('DOMContentLoaded', function() {
         newEntry.querySelector('.remove-entry').addEventListener('click', function() {
             educationFields.removeChild(newEntry);
             updatePreview();
+        });
+        
+        // Add input listeners to new fields
+        newEntry.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', updatePreview);
         });
         
         updatePreview();
@@ -272,19 +282,23 @@ document.addEventListener('DOMContentLoaded', function() {
             updatePreview();
         });
         
+        // Add input listeners to new fields
+        newEntry.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+        
         updatePreview();
     }
     
     // Clear form
     function clearForm() {
+        // Reset form inputs
         resumeForm.reset();
+        
+        // Clear dynamic fields
         document.getElementById('educationFields').innerHTML = '';
         document.getElementById('experienceFields').innerHTML = '';
         document.getElementById('selectedSkills').innerHTML = '';
-        
-        // Add one empty education and experience field
-        addEducationField();
-        addExperienceField();
         
         // Reset skills
         selectedSkills = [];
@@ -292,7 +306,8 @@ document.addEventListener('DOMContentLoaded', function() {
             checkbox.checked = false;
         });
         
-        updatePreview();
+        // Reinitialize with default fields
+        initForm();
     }
     
     // Download PDF
@@ -302,7 +317,11 @@ document.addEventListener('DOMContentLoaded', function() {
             margin: 10,
             filename: 'resume.pdf',
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
+            html2canvas: { 
+                scale: 2,
+                logging: true,
+                useCORS: true
+            },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         
@@ -311,11 +330,17 @@ document.addEventListener('DOMContentLoaded', function() {
         downloadPDFBtn.disabled = true;
         
         // Generate PDF
-        html2pdf().from(element).set(opt).save().then(() => {
-            // Reset button state
-            downloadPDFBtn.innerHTML = 'Download PDF';
-            downloadPDFBtn.disabled = false;
-        });
+        html2pdf().set(opt).from(element).save()
+            .then(() => {
+                console.log('PDF generated successfully');
+            })
+            .catch(err => {
+                console.error('PDF generation error:', err);
+            })
+            .finally(() => {
+                downloadPDFBtn.innerHTML = 'Download PDF';
+                downloadPDFBtn.disabled = false;
+            });
     }
     
     // Update progress bar
@@ -328,8 +353,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const filledFields = fields.filter(field => field.value.trim() !== '').length;
         const totalFields = fields.length;
-        const progress = (filledFields / totalFields) * 100;
+        const progress = Math.min(100, Math.round((filledFields / totalFields) * 100));
         
         progressBar.style.width = `${progress}%`;
+        
+        // Change color based on completion
+        if (progress < 30) {
+            progressBar.style.backgroundColor = '#e74c3c'; // Red
+        } else if (progress < 70) {
+            progressBar.style.backgroundColor = '#f39c12'; // Orange
+        } else {
+            progressBar.style.backgroundColor = '#2ecc71'; // Green
+        }
     }
 });
