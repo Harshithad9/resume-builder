@@ -573,7 +573,6 @@ function downloadPDF() {
   }
 }
 
-// Add fadeOut animation for CSS
 const style = document.createElement("style")
 style.textContent = `
     @keyframes fadeOut {
