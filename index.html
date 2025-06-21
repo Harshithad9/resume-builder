@@ -3,209 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechBlog - Explore the Digital World</title>
+    <title>Resume Builder</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>TechBlog</h2>
+    <div class="container">
+        <h1>Resume Builder</h1>
+        <form id="resumeForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <textarea id="summary" placeholder="Profile Summary" required></textarea>
+            
+            <div id="educationContainer">
+                <h3>Education</h3>
+                <button type="button" id="addEducation">Add Education</button>
             </div>
             
-            <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#blog" class="nav-link">Blog</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            <div id="skillsContainer">
+                <h3>Skills</h3>
+                <label><input type="checkbox" value="HTML"> HTML</label>
+                <label><input type="checkbox" value="CSS"> CSS</label>
+                <label><input type="checkbox" value="JavaScript"> JavaScript</label>
+                <label><input type="checkbox" value="React"> React</label>
             </div>
             
-            <div class="nav-actions">
-                <button class="theme-toggle" id="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="nav-toggle" id="nav-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+            <div id="experienceContainer">
+                <h3>Experience</h3>
+                <button type="button" id="addExperience">Add Experience</button>
             </div>
-        </div>
-    </nav>
+            
+            <button type="submit">Generate Resume</button>
+            <button type="button" id="clearForm">Clear Form</button>
+        </form>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Welcome to TechBlog</h1>
-                <p class="hero-subtitle">Discover the latest trends in technology, programming, and digital innovation</p>
-                <button class="cta-button" onclick="scrollToSection('blog')">
-                    Explore Articles <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-            <div class="hero-image">
-                <img src="/placeholder.svg?height=400&width=600" alt="Tech Blog Hero" />
-            </div>
-        </div>
-        <div class="hero-scroll">
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
-
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-container">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Search articles by title or tag...">
-                </div>
-                <div class="filter-tags">
-                    <button class="tag-filter active" data-category="all">All</button>
-                    <button class="tag-filter" data-category="javascript">JavaScript</button>
-                    <button class="tag-filter" data-category="react">React</button>
-                    <button class="tag-filter" data-category="css">CSS</button>
-                    <button class="tag-filter" data-category="nodejs">Node.js</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog" class="blog-section">
-        <div class="container">
-            <h2 class="section-title">Latest Articles</h2>
-            <div class="blog-grid" id="blog-grid">
-                <!-- Blog posts will be dynamically inserted here -->
-            </div>
-            <div class="load-more-container">
-                <button class="load-more-btn" id="load-more-btn">Load More Articles</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">About TechBlog</h2>
-                    <p>We're passionate about sharing knowledge and insights about the ever-evolving world of technology. Our team of experienced developers and tech enthusiasts brings you the latest trends, tutorials, and best practices.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <h3>500+</h3>
-                            <p>Articles Published</p>
-                        </div>
-                        <div class="stat">
-                            <h3>50K+</h3>
-                            <p>Monthly Readers</p>
-                        </div>
-                        <div class="stat">
-                            <h3>100+</h3>
-                            <p>Contributors</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <img src="/placeholder.svg?height=400&width=500" alt="About Us" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>Have a question or want to contribute? We'd love to hear from you!</p>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>hello@techblog.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+1 (555) 123-4567</span>
-                    </div>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        <span class="error-message" id="name-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        <span class="error-message" id="email-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                        <span class="error-message" id="message-error"></span>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>TechBlog</h3>
-                    <p>Exploring the digital frontier, one article at a time.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#blog">Blog</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Categories</h4>
-                    <a href="#">JavaScript</a>
-                    <a href="#">React</a>
-                    <a href="#">CSS</a>
-                    <a href="#">Node.js</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 TechBlog. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Blog Post Modal -->
-    <div class="modal" id="blog-modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-modal">&times;</span>
-            <div class="modal-body" id="modal-body">
-                <!-- Blog post content will be inserted here -->
-            </div>
+        <div id="resumePreview" class="resume-preview">
+            <h2>Resume Preview</h2>
+            <div id="previewContent"></div>
         </div>
     </div>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" id="scroll-to-top">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-
-    <!-- Loading Spinner -->
-    <div class="loading-spinner" id="loading-spinner">
-        <div class="spinner"></div>
-    </div>
-
-    <script src="scriptjs"></script>
+    <script src="script.js"></script>
 </body>
 </html>
