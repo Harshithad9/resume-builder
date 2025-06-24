@@ -1,4 +1,4 @@
-// Global variables
+
 let educationCounter = 1
 let experienceCounter = 1
 let certificationCounter = 1
