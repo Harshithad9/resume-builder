@@ -4,7 +4,6 @@ let experienceCounter = 1
 let certificationCounter = 1
 let selectedSkills = []
 
-// Initialize the application
 document.addEventListener("DOMContentLoaded", () => {
   updateResume()
   updateProgress()
