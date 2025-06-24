@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateProgress()
 })
 
-// Update resume preview in real-time
+
 function updateResume() {
   updatePersonalInfo()
   updateSummary()
