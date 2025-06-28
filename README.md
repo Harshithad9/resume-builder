@@ -25,4 +25,4 @@ A clean, modern Resume Builder web application that allows users to create, edit
 
 1. **Clone the repository**
    ```bash
-  https://github.com/Harshithad9/resume-builder.git
+  git clone https://github.com/Harshithad9/resume-builder.git
