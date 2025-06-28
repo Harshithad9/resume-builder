@@ -21,11 +21,8 @@ A clean, modern Resume Builder web application that allows users to create, edit
 - CSS
 - Javascript
 
-
-
 ## 📦 Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Harshithad9/resume-builder.git
-   cd resume-builder
+  https://github.com/Harshithad9/resume-builder.git
