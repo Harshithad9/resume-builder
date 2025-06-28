@@ -6,8 +6,6 @@ A clean, modern Resume Builder web application that allows users to create, edit
 
 🔗 [resume-builder-orpin-chi.vercel.app](https://resume-builder-orpin-chi.vercel.app)
 
-
-
 ## ✨ Features
 
 - 🧑‍💻 User-friendly UI to input personal and professional details
@@ -19,14 +17,11 @@ A clean, modern Resume Builder web application that allows users to create, edit
 ## 🛠️ Tech Stack
 
 **Frontend:**
-- React.js
-- HTML5 & CSS3
-- Tailwind CSS (or your preferred styling approach)
+- HTML 
+- CSS
+- Javascript
 
-**Backend (optional if applicable):**
-- Node.js
-- Express.js
-- MongoDB (optional for user data storage)
+
 
 ## 📦 Installation
 
