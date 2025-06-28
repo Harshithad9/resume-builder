@@ -6,9 +6,7 @@ A clean, modern Resume Builder web application that allows users to create, edit
 
 🔗 [resume-builder-orpin-chi.vercel.app](https://resume-builder-orpin-chi.vercel.app)
 
-## 📸 Preview
 
-![Resume Builder Screenshot](preview-image-url-if-any)
 
 ## ✨ Features
 
