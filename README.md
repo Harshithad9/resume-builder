@@ -1,6 +1,6 @@
 # 📝 Resume Builder
 
-A clean, modern Resume Builder web application that allows users to create, edit, preview, and download professional resumes in PDF format. Built using the MERN stack, the app focuses on simplicity, responsiveness, and usability to help users quickly craft resumes that stand out.
+A clean, modern Resume Builder web application that allows users to create, edit, preview, and download professional resumes in PDF format. Built using HTML< CSS and JS, the app focuses on simplicity, responsiveness, and usability to help users quickly craft resumes that stand out.
 
 ## 🚀 Live Demo
 
